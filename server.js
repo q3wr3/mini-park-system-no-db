@@ -23,7 +23,7 @@ function getKeyByValue(object, value) {
 function park(carID) {
 	let notParked = true;
 	/*check if inputed value is not a number*/
-	if (isNaN(carID)) return({Error:{Code:001,Message:"Car ID must be a number value"}})
+	if (isNaN(carID)) return({Error:{ErrorCode:101,Message:"Car ID must be a number value"}})
 	
 	/*check if carID already exist in object*/
 	var exists = getKeyByValue(parkingSpots,carID)
@@ -43,7 +43,7 @@ function park(carID) {
 		parkingSpots[firstFreeSlot] = carID /*add the car to a slot*/
 		return ({carID:carID, parkSpot:firstFreeSlot}); /*return the carID and the slot its in*/
 	}else{
-		return({Error:{Code:002,Message:"Sorry, no more free parking spots"}})/*returns an error message for no more space in parkinglot*/
+		return({Error:{ErrorCode:102,Message:"Sorry, no more free parking spots"}})/*returns an error message for no more space in parkinglot*/
 	}
 }
 
@@ -55,7 +55,7 @@ app.post('/park', (req, res) => {
    	let carID = req.body.car
    	let carPark = park(carID)
    	if (typeof carPark === "object" && "Error" in carPark){
-   		res.status(403).send(carPark)
+   		res.status(403).send(carPark.Error)
    	}else{
    		console.log(JSON.stringify(carPark))
    		res.status(200).send(carPark);

@@ -28,13 +28,11 @@ function park(carID) {
 	}
 
 	/*check if carID already exist in object*/
-	var exists = Object.keys(parkingSpots).some(function(k) {
-	    return parkingSpots[k] === carID;
-	});
+	var exists = getKeyByValue(parkingSpots,carID)
 	console.log(`isParked: ${exists}`)
 	
 	if (exists) {
-		return({Info:`The car is parked on parking position ${getKeyByValue(parkingSpots,carID)}`})
+		return({Info:`The car is parked on parking position ${exists}`})
 		notParked = false;
 	}
 	/*get first free parking slot to park the car*/

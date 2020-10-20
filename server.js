@@ -22,11 +22,9 @@ function getKeyByValue(object, value) {
 
 function park(carID) {
 	let notParked = true;
-	console.log(`nan check:${isNaN(carID)}`)
-	if (isNaN(carID)){
-		return({Error:{Code:001,Message:"Car ID must be a number value"}})
-	}
-
+	/*check if inputed value is not a number*/
+	if (isNaN(carID)) return({Error:{Code:001,Message:"Car ID must be a number value"}})
+	
 	/*check if carID already exist in object*/
 	var exists = getKeyByValue(parkingSpots,carID)
 	console.log(`isParked: ${exists}`)
@@ -37,9 +35,11 @@ function park(carID) {
 	}
 	/*get first free parking slot to park the car*/
 	let firstFreeSlot = getKeyByValue(parkingSpots,null);
+
 	console.log(`first available slot:`+firstFreeSlot);
+
 	/*check if there are any free space in parkinglot*/
-	if (firstFreeSlot != undefined && notParked) {
+	if (firstFreeSlot != undefined) {
 		parkingSpots[firstFreeSlot] = carID /*add the car to a slot*/
 		return ({carID:carID, parkSpot:firstFreeSlot}); /*return the carID and the slot its in*/
 	}else{
